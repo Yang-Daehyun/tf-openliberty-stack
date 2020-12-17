@@ -11,9 +11,16 @@ RUN  groupadd java_group \
    && mkdir /configlibdir \
    && chown -R java_user:java_group /configlibdir \
    &&  mkdir /shared \
-   && chown -R java_user:java_group /shared 
+   && chown -R java_user:java_group /shared \
+# ydh DB2 lib
+   &&  mkdir /db2_lib \
+   && chown -R java_user:java_group /db2_lib 
+
 
  USER java_user
+
+# Copy DB2 lib
+COPY --chown=java_user:java_group ./DB2_lib/db2jcc4.jar /db2_lib/db2jcc4.jar
 
 # Copy and build the dev.appsody:java-openliberty parent pom
 COPY --chown=java_user:java_group ./pom.xml /project/pom.xml
